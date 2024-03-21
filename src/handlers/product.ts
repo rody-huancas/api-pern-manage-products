@@ -57,7 +57,6 @@ export const updateProduct = async (req: Request, res: Response) => {
 }
 
 export const updateAvailability = async (req: Request, res: Response) => {
-  console.log("entra")
   try {
     const { id } = req.params;
     const product = await Product.findByPk(id);
@@ -66,10 +65,25 @@ export const updateAvailability = async (req: Request, res: Response) => {
     }
 
     // Actualizar
-    await product.update(req.body);
+    product.availability = !product.dataValues.availability;
     await product.save();
 
     res.json({ data: product });
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const deleteProduct = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const product = await Product.findByPk(id);
+    if(!product){
+      return res.status(404).json({ message: "No se encontró el producto" });
+    }
+
+    await product.destroy();
+    res.json({ data: 'Producto eliminado!' });
   } catch (error) {
     throw error;
   }
