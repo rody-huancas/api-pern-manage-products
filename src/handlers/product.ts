@@ -36,3 +36,42 @@ export const createProduct = async (req: Request, res: Response) => {
     throw error;
   }
 };
+
+export const updateProduct = async (req: Request, res: Response) => {
+  console.log("entra")
+  try {
+    const { id } = req.params;
+    const product = await Product.findByPk(id);
+    if(!product){
+      return res.status(404).json({ message: "No se encontró el producto" });
+    }
+
+    // Actualizar
+    await product.update(req.body);
+    await product.save();
+
+    res.json({ data: product });
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const updateAvailability = async (req: Request, res: Response) => {
+  console.log("entra")
+  try {
+    const { id } = req.params;
+    const product = await Product.findByPk(id);
+    if(!product){
+      return res.status(404).json({ message: "No se encontró el producto" });
+    }
+
+    // Actualizar
+    await product.update(req.body);
+    await product.save();
+
+    res.json({ data: product });
+  } catch (error) {
+    throw error;
+  }
+}
+
