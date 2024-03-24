@@ -15,7 +15,6 @@ router.get("/:id",
 
 router.post(
   "/",
-  param('id').isInt().withMessage('ID no válido'),
   body("name")
     .notEmpty().withMessage("El nombre del producto no puede ir vacío"),
   body("price")

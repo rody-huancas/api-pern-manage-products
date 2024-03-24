@@ -3,6 +3,7 @@ import colors from "colors";
 import router from "./router";
 import db from "./config/db";
 import cors, { CorsOptions } from "cors";
+import morgan from "morgan";
 
 // Conectar a la Base de datos
 async function connectDB() {
@@ -31,6 +32,8 @@ const cosrsOptions: CorsOptions = {
 }
 
 server.use(cors(cosrsOptions));
+
+server.use(morgan('dev'));
 
 // leer datos de formulario
 server.use(express.json())
